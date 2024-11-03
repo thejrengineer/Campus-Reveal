@@ -12,10 +12,10 @@ dotenv.config(); // Load environment variables
 // controllers/requestCollegeController.js
 import nodemailer from 'nodemailer';
 
-// Assuming you have set up your email transporter
+// Set up your email transporter
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465, // or 465 for SSL
+    port: 465, // Secure port for SSL
     secure: true, // true for 465, false for other ports
     auth: {
         user: process.env.EMAIL, // Your sender email
@@ -29,26 +29,29 @@ const transporter = nodemailer.createTransport({
 export const requestCollege = async (req, res) => {
     const { name, city, state, nirfRank, rank } = req.body;
 
-    // Logic to save the college request into your database, if needed...
-    const email = process.env.Email;
+    // Use a different email for receiving requests
+    const senderEmail = process.env.EMAIL; // Your sender email
+    const recipientEmail = process.env.RECIPIENT_EMAIL; // A different email to receive requests
+
     // Send email logic
     const mailOptions = {
-
-       
-        from: email,
-        to: email,
+        from: senderEmail,
+        to: recipientEmail, // Use a different recipient email
         subject: 'College Addition Request',
         text: `Request details: \nName: ${name} \nCity: ${city} \nState: ${state} \nNIRF Rank: ${nirfRank} \nRank: ${rank}`
     };
 
+    console.log('Preparing to send email with the following options:', mailOptions);
+
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            return res.status(500).json({ message: 'Error sending email', error });
+            console.error('Error sending email:', error); // Log the error for debugging
+            return res.status(500).json({ message: 'Error sending email', error: error.message });
         }
+        console.log('Email sent successfully:', info); // Log success message
         res.status(200).json({ message: 'Request submitted successfully and email sent!' });
     });
 };
-
 
 // Fetch college details by ID
 export const getCollegeById = async (req, res) => {
