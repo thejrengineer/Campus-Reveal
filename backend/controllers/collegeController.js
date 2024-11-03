@@ -12,11 +12,11 @@ dotenv.config(); // Load environment variables
 // controllers/requestCollegeController.js
 import nodemailer from 'nodemailer';
 
-// Set up your email transporter
+// Set up the email transporter
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465, // Secure port for SSL
-    secure: true, // true for 465, false for other ports
+    port: 587, // Change to 587 for TLS
+    secure: false, // Set to false for port 587
     auth: {
         user: process.env.EMAIL, // Your sender email
         pass: process.env.PASSWORD // Your email password or app password
@@ -29,14 +29,15 @@ const transporter = nodemailer.createTransport({
 export const requestCollege = async (req, res) => {
     const { name, city, state, nirfRank, rank } = req.body;
 
-    // Use a different email for receiving requests
-    const senderEmail = process.env.EMAIL; // Your sender email
-    const recipientEmail = process.env.RECIPIENT_EMAIL; // A different email to receive requests
+    const senderEmail = process.env.EMAIL;
+    const recipientEmail = process.env.RECIPIENT_EMAIL;
 
-    // Send email logic
+    console.log('Sender Email:', senderEmail);
+    console.log('Recipient Email:', recipientEmail); // Log recipient email
+
     const mailOptions = {
         from: senderEmail,
-        to: recipientEmail, // Use a different recipient email
+        to: recipientEmail,
         subject: 'College Addition Request',
         text: `Request details: \nName: ${name} \nCity: ${city} \nState: ${state} \nNIRF Rank: ${nirfRank} \nRank: ${rank}`
     };
@@ -45,10 +46,10 @@ export const requestCollege = async (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.error('Error sending email:', error); // Log the error for debugging
+            console.error('Error sending email:', error);
             return res.status(500).json({ message: 'Error sending email', error: error.message });
         }
-        console.log('Email sent successfully:', info); // Log success message
+        console.log('Email sent successfully:', info);
         res.status(200).json({ message: 'Request submitted successfully and email sent!' });
     });
 };
