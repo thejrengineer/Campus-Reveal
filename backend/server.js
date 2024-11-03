@@ -22,7 +22,11 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch(err => console.error('MongoDB connection error:', err));
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: 'https://campusreveal.vercel.app', // allow only your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // specify allowed HTTP methods
+    credentials: true // if you need to include cookies or authorization headers
+}));
 app.use(express.json());
 
 // Use the college details route
