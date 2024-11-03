@@ -23,7 +23,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 // Middleware
 app.use(cors({
-    origin: 'https://campusreveal.vercel.app', // allow only your frontend URL
+    origin: '*', // allow only your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // specify allowed HTTP methods
     credentials: true // if you need to include cookies or authorization headers
 }));
