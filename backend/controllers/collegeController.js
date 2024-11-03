@@ -15,8 +15,8 @@ import nodemailer from 'nodemailer';
 // Assuming you have set up your email transporter
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 587, // or 465 for SSL
-    secure: false, // true for 465, false for other ports
+    port: 465, // or 465 for SSL
+    secure: true, // true for 465, false for other ports
     auth: {
         user: process.env.EMAIL, // Your sender email
         pass: process.env.PASSWORD // Your email password or app password
