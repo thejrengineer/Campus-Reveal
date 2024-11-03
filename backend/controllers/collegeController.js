@@ -27,7 +27,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export const requestCollege = async (req, res) => {
-    const { name, city, state, nirfRank, rank, senderEmail, receiverEmail } = req.body;
+    const { name, city, state, nirfRank, rank } = req.body;
 
     // Logic to save the college request into your database, if needed...
     const email = process.env.Email;
