@@ -82,7 +82,7 @@ const Home = () => {
             openSuccessModal();
         } catch (error) {
             console.error('Error submitting college request:', error);
-            alert('There was an error submitting your request.');
+            //alert('There was an error submitting your request.');
         }
     };
 
