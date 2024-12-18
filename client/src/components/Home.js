@@ -90,22 +90,20 @@ const Home = () => {
 
     if (loading) return (
         <div className="text-center mt-10">
-            {/* Display skeleton loader while loading colleges */}
-            <Skeleton count={6} height={200} className="mb-6" />
+            {/* Display skeleton loader with older style */}
+            <Skeleton count={6} height={220} className="mb-6 w-11/12 mx-auto" />
         </div>
     );
 
     if (error) return <div className="text-center text-red-600 mt-10">{error}</div>;
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
+        <div className="p-6 bg-gray-50 min-h-screen">
             <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-                {/* Logo takes 20% of the width */}
                 <div className="flex-grow md:flex-grow-0 md:w-1/5 flex justify-center md:justify-start">
-                    <img src={logo} alt="Logo" className="h-3" /> {/* Reduced logo size */}
+                    <img src={logo} alt="Logo" className="h-10" /> {/* Enhanced logo size */}
                 </div>
 
-                {/* Search bar takes 60% of the width */}
                 <div className="w-full md:w-3/5 flex items-center justify-center">
                     <input
                         type="text"
@@ -116,7 +114,6 @@ const Home = () => {
                     />
                 </div>
 
-                {/* Button takes 20% of the width */}
                 <div className="flex-grow md:flex-grow-0 md:w-1/5 flex justify-center md:justify-end mt-4 md:mt-0">
                     <button onClick={openModal} className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition duration-300">
                         Request to Add College
