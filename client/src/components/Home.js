@@ -88,7 +88,13 @@ const Home = () => {
         }
     };
 
-    if (loading) return <div className="text-center mt-10">Loading...</div>;
+    if (loading) return (
+        <div className="text-center mt-10">
+            {/* Display skeleton loader while loading colleges */}
+            <Skeleton count={6} height={200} className="mb-6" />
+        </div>
+    );
+
     if (error) return <div className="text-center text-red-600 mt-10">{error}</div>;
 
     return (
@@ -119,17 +125,7 @@ const Home = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {loading ? (
-                    // Skeleton loader for each college card
-                    Array(6).fill().map((_, index) => (
-                        <div key={index} className="bg-white shadow-lg rounded-2xl p-6">
-                            <Skeleton height={30} width="80%" className="mb-4" />
-                            <Skeleton height={25} width="60%" />
-                            <Skeleton height={20} width="40%" className="mt-2" />
-                            <Skeleton height={40} width="100%" className="mt-4" />
-                        </div>
-                    ))
-                ) : currentColleges.length > 0 ? (
+                {currentColleges.length > 0 ? (
                     currentColleges.map((college) => (
                         <div key={college._id} className="bg-white shadow-lg rounded-2xl p-6 transition-transform transform hover:scale-105 duration-300">
                             <div className="flex justify-between items-center mb-2">
